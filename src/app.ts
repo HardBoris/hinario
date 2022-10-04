@@ -1,22 +1,30 @@
+import express, { Request, Response } from "express";
+import { sign } from "jsonwebtoken";
 import { AppDataSource } from "./data-source";
 import { User } from "./entities/User";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-AppDataSource.initialize()
-  .then(async () => {
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await AppDataSource.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+const app = express();
 
-    console.log("Loading users from the database...");
-    const users = await AppDataSource.manager.find(User);
-    console.log("Loaded users: ", users);
+app.use(express.json());
 
-    console.log(
-      "Here you can setup and run express / fastify / any other framework."
-    );
-  })
-  .catch((error) => console.log(error));
+app.post("/login", async (req: Request, res: Response) => {
+  const user: User = await AppDataSource.getRepository(User).findOneBy({
+    email: req.body.email,
+  });
+  if (!user) {
+    return res.status(401).json({ message: "Invalid credentials." });
+  }
+  if (!(await user.comparePwd(req.body.password))) {
+    return res.status(401).json({ message: "Invalid credentials." });
+  }
+
+  const token: string = sign({ ...user }, process.env.SECRET_KEY, {
+    expiresIn: process.env.EXPIRES_IN,
+  });
+
+  return res.status(200).json({ token });
+});
+
+export default app;
