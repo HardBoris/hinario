@@ -7,14 +7,16 @@ import loginUserSchema from "../schemas/user/loginUser.schema";
 
 const userRouter = Router();
 
+userRouter.get("/users", userController.loaderUser);
+
 userRouter.post(
-  "/login",
+  "/users/login",
   validadeSchema(loginUserSchema),
   userController.loginUser
 );
 
 userRouter.post(
-  "register",
+  "/users/register",
   validadeSchema(createUserSchema),
   verifyUserExists,
   userController.createUser

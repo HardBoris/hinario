@@ -14,6 +14,14 @@ interface ILogin {
 }
 
 class UserService {
+  loaderUser = async (req: Request) => {
+    const users: User[] = await userRepository.all();
+    return {
+      status: 200,
+      users: users,
+    };
+  };
+
   loginUser = async ({ validated }: Request): Promise<ILogin> => {
     const user: User = await userRepository.findOne({
       email: validated.email,

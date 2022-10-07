@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
-import { userController } from ".";
 import { userService } from "../services";
 
 class UserController {
+  loaderUser = async (req: Request, res: Response) => {
+    const { status, users } = await userService.loaderUser(req);
+    return res.status(status).json(users);
+  };
+
   loginUser = async (req: Request, res: Response) => {
     const { status, message } = await userService.loginUser(req);
     return res.status(status).json(message);
@@ -14,4 +18,4 @@ class UserController {
   };
 }
 
-export default new userController();
+export default new UserController();
