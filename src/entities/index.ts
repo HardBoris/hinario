@@ -1,3 +1,4 @@
 import { User } from "./User";
+import { Hymn } from "./Hymn";
 
-export { User };
+export { User, Hymn };
