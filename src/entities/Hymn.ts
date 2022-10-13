@@ -13,4 +13,13 @@ export class Hymn {
 
   @Column()
   hymnUrl: string;
+
+  @Column({ nullable: true })
+  hymnAuthor?: string;
+
+  @Column({ nullable: true })
+  hymnComposer?: string;
+
+  @Column({ nullable: true })
+  originalTitle?: string;
 }
