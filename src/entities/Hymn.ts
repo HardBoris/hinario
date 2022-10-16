@@ -6,7 +6,7 @@ export class Hymn {
   hymnId?: string;
 
   @Column()
-  hymnTitle: string;
+  hymnTitle?: string;
 
   @Column()
   hymnNumber: string;
