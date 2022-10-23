@@ -2,14 +2,14 @@ import * as yup from "yup";
 
 const createUserSchema = yup.object().shape({
   email: yup.string().email().lowercase().required(),
-  isAdmin: yup.boolean().default(false).optional(),
+  userCategory: yup.string().default("basic").optional(),
   password: yup.string().required(),
 });
 
 const serializedCreateUserSchema = yup.object().shape({
   userId: yup.string().uuid().required(),
   email: yup.string().email().required(),
-  isAdmin: yup.boolean().required(),
+  userCategory: yup.string().required(),
 });
 
 export { createUserSchema, serializedCreateUserSchema };

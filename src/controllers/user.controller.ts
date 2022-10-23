@@ -16,6 +16,11 @@ class UserController {
     const user = await userService.createUser(req);
     return res.status(201).json(user);
   };
+
+  updateUser = async (req: Request, res: Response) => {
+    const user = await userService.updateUser(req);
+    return res.status(201).json(user);
+  };
 }
 
 export default new UserController();

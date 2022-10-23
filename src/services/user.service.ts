@@ -6,6 +6,7 @@ import { AssertsShape } from "yup/lib/object";
 import { hash } from "bcrypt";
 import { serializedCreateUserSchema } from "../schemas/user/createUser.schema";
 import * as dotenv from "dotenv";
+import { serializedUpdatedUserSchema } from "../schemas/user/updateUser.schema";
 dotenv.config();
 
 interface ILogin {
@@ -56,6 +57,17 @@ class UserService {
     const user: User = await userRepository.save(validated);
 
     return await serializedCreateUserSchema.validate(user, {
+      stripUnknown: true,
+    });
+  };
+
+  updateUser = async ({ validated }: Request) => {
+    const user: User = await userRepository.findOne({
+      userId: validated.userId,
+    });
+    user.userCategory = validated.userCategory;
+    const userUpdate = await userRepository.save(user);
+    return await serializedUpdatedUserSchema.validate(userUpdate, {
       stripUnknown: true,
     });
   };

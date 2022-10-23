@@ -5,7 +5,7 @@ export class Hymn {
   @PrimaryGeneratedColumn("uuid")
   hymnId?: string;
 
-  @Column()
+  @Column({ nullable: true })
   hymnTitle?: string;
 
   @Column()
