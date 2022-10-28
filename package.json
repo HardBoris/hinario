@@ -5,10 +5,12 @@
   "license": "MIT",
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/uuid": "^8.3.4",
     "@types/yup": "^0.32.0",
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.4.0",
