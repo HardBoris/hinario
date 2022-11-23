@@ -3,13 +3,11 @@ import { userController } from "../controllers/";
 import categoryValidator from "../middlewares/categoryValidator.middleware";
 import ownerValidator from "../middlewares/ownerValidator.middleware";
 import tokenValidator from "../middlewares/tokenValidator.middleware";
-import keyValidator from "../middlewares/validateKeyUpdater.middleware";
 import validadeSchema from "../middlewares/validateSchema.middleware";
 import verifyUserExists from "../middlewares/verifyUserExists.middleware";
 import { createUserSchema } from "../schemas/user/createUser.schema";
 import loginUserSchema from "../schemas/user/loginUser.schema";
 import { updateUserSchema } from "../schemas/user/updateUser.schema";
-import { userService } from "../services";
 
 const userRouter = Router();
 
