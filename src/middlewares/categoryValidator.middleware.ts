@@ -24,15 +24,21 @@ const categoryValidator = async (
   }
 
   if (decodedUser.userId !== paramsUser.userId) {
-    return res
-      .status(401)
-      .json({ message: "You are not authorized to update another user." });
+    return res.status(401).json({
+      error: {
+        message: "You are not authorized to update another user.",
+        name: "NotAllowedAction",
+      },
+    });
   }
 
   if (decodedUser.userId === paramsUser.userId) {
-    return res
-      .status(403)
-      .json({ message: "you are not authorized to update yourself." });
+    return res.status(403).json({
+      error: {
+        message: "you are not authorized to update yourself.",
+        name: "NotAllowedAction",
+      },
+    });
   }
 };
 

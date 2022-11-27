@@ -6,12 +6,19 @@ const tokenValidator = (req: Request, res: Response, next: NextFunction) => {
   const token: string = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "Missing authorization token." });
+    return res
+      .status(401)
+      .json({
+        error: {
+          message: "Missing authorization token.",
+          name: "InvalidHeader",
+        },
+      });
   }
 
-  return verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ message: err });
+  return verify(token, process.env.SECRET_KEY, (error, decoded) => {
+    if (error) {
+      return res.status(403).json({ error });
     }
 
     req.decoded = decoded as User;

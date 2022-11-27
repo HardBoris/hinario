@@ -17,9 +17,12 @@ const ownerValidator = async (
   }
 
   if (decodedUser.userCategory !== "owner") {
-    return res
-      .status(401)
-      .json({ message: "You are not authorized to perform this operation." });
+    return res.status(401).json({
+      error: {
+        message: "You are not authorized to perform this operation.",
+        name: "UnauthorizedUser",
+      },
+    });
   }
 };
 
