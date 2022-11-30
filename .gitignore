@@ -7,3 +7,4 @@ temp/
 *.lock
 package-lock*
 .env
+dist/
