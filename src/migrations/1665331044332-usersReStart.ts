@@ -13,7 +13,7 @@ export class usersReStart1665331044332 implements MigrationInterface {
     await queryRunner.query(`
                 INSERT INTO "users" ("email", "userCategory", "password")
                 VALUES ('${process.env.OWNER_EMAIL}', 'owner', '${hashSync(
-      process.env.OWNER_PASSWORD,
+      process.env.MY_PASSWORD,
       10
     )}')
         `);
