@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 const createUserSchema = yup.object().shape({
   email: yup.string().email().lowercase().required(),
-  userCategory: yup.string().default("basic").optional(),
+  userCategory: yup.string().default("player").optional(),
   password: yup.string().required(),
 });
 
