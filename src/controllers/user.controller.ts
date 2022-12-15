@@ -14,7 +14,6 @@ class UserController {
 
   createUser = async (req: Request, res: Response) => {
     const user = await userService.createUser(req);
-    // mailerService.welcomeEmail();
     return res.status(201).json(user);
   };
 
