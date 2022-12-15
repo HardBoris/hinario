@@ -3,10 +3,11 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const transport = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.mailtrap.io",
+  port: 2525,
   auth: {
-    user: process.env.OWNER_EMAIL,
-    pass: process.env.MASTER_PASSWORD,
+    user: "3b6033c44c2348",
+    pass: "b5d12801f8d363",
   },
 });
 

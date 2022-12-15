@@ -1,11 +1,10 @@
-import { prototype } from "events";
-import nodemailer from "nodemailer";
-/* import transport from "../config/mailer.config";
+// import nodemailer from "nodemailer";
+// import transport from "../config/mailer.config";
 
-class mailerService {
-  welcomeEmail = () => {
+/* class mailerService {
+  welcomeEmail = (userEmail: string) => {
     const mailOptions = {
-      from: process.env.OWNER_EMAIL,
+      from: userEmail,
       to: "borisggl@hotmail.com",
       subject: "Prueba",
       text: "este email fue enviado porque usted creo un nuevo usuario",
@@ -19,9 +18,10 @@ class mailerService {
 export default new mailerService(); */
 
 /* const transport = nodemailer.createTransport({
-  service: "gmail",
+  host: "coxivec594@areosur.com",
   auth: {
-    user: "bgaibor03@gmail.com",
+    user: user,
+    pass: password,
   },
 });
 
