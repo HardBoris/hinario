@@ -5,6 +5,7 @@ import ownerValidator from "../middlewares/ownerValidator.middleware";
 import tokenValidator from "../middlewares/tokenValidator.middleware";
 import validadeSchema from "../middlewares/validateSchema.middleware";
 import verifyUserExists from "../middlewares/verifyUserExists.middleware";
+import verifyUserNotExists from "../middlewares/verifyUserNotExists.middleware";
 import { createUserSchema } from "../schemas/user/createUser.schema";
 import loginUserSchema from "../schemas/user/loginUser.schema";
 import { updateUserSchema } from "../schemas/user/updateUser.schema";
@@ -21,6 +22,7 @@ userRouter.get(
 userRouter.post(
   "/users/login",
   validadeSchema(loginUserSchema),
+  verifyUserNotExists,
   userController.loginUser
 );
 
