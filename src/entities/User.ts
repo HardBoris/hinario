@@ -1,5 +1,6 @@
 import { compare } from "bcrypt";
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import { History } from "./History";
 
 @Entity("users")
 export class User {
@@ -14,6 +15,12 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column()
+  userName: string;
+
+  @OneToOne(() => History, (history) => history.user, { lazy: true })
+  history: History;
 
   comparePwd = async (pwdString: string): Promise<boolean> => {
     return await compare(pwdString, this.password);
