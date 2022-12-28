@@ -1,5 +1,11 @@
 import { compare } from "bcrypt";
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  OneToMany,
+} from "typeorm";
 import { History } from "./History";
 
 @Entity("users")
@@ -17,9 +23,9 @@ export class User {
   password: string;
 
   @Column()
-  userName: string;
+  userName?: string;
 
-  @OneToOne(() => History, (history) => history.user, { lazy: true })
+  @OneToMany(() => History, (history) => history.user, { lazy: true })
   history: History;
 
   comparePwd = async (pwdString: string): Promise<boolean> => {

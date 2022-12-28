@@ -3,8 +3,8 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToOne,
   JoinColumn,
+  ManyToOne,
 } from "typeorm";
 import { User } from "./User";
 
@@ -22,7 +22,7 @@ export class History {
   @CreateDateColumn()
   playedAt: Date;
 
-  @OneToOne(() => User, (user) => user.history)
+  @ManyToOne(() => User, (user) => user.history)
   @JoinColumn()
   user: User;
 }
