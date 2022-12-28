@@ -5,6 +5,7 @@ import {
   Column,
   OneToOne,
   OneToMany,
+  JoinColumn,
 } from "typeorm";
 import { History } from "./History";
 

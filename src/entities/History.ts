@@ -11,7 +11,7 @@ import { User } from "./User";
 @Entity("history")
 export class History {
   @PrimaryGeneratedColumn("uuid")
-  histId: string;
+  histId?: string;
 
   @Column()
   hymnId: string;
@@ -23,6 +23,5 @@ export class History {
   playedAt: Date;
 
   @ManyToOne(() => User, (user) => user.history)
-  @JoinColumn()
   user: User;
 }

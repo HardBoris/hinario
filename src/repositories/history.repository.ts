@@ -4,7 +4,7 @@ import { History } from "../entities/History";
 
 interface IHistoryRepo {
   save: (history: History) => Promise<History>;
-  all: (user: string) => Promise<History[]>;
+  all: () => Promise<History[]>;
   findOne: (payload: object) => Promise<History>;
 }
 
@@ -15,8 +15,8 @@ class HistoryRepo implements IHistoryRepo {
     this.ormRepo = AppDataSource.getRepository(History);
   }
 
-  save = async (history: History) => await this.ormRepo.save(history);
-  all = async (user: string) => await this.ormRepo.find();
+  save = async (history: Partial<History>) => await this.ormRepo.save(history);
+  all = async () => await this.ormRepo.find();
   findOne = async (payload: object) => {
     return await this.ormRepo.findOneBy({ ...payload });
   };

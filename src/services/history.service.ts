@@ -1,13 +1,6 @@
-import { Request } from "express";
-import { sign } from "jsonwebtoken";
+import { Request, Response } from "express";
 import { History, User } from "../entities";
-import { historyRepository } from "../repositories";
-import { AssertsShape } from "yup/lib/object";
-import { hash } from "bcrypt";
-import { serializedCreateUserSchema } from "../schemas/user/createUser.schema";
-import * as dotenv from "dotenv";
-import { serializedUpdatedUserSchema } from "../schemas/user/updateUser.schema";
-dotenv.config();
+import { historyRepository, userRepository } from "../repositories";
 
 interface IHistory {
   status: number;
@@ -16,7 +9,7 @@ interface IHistory {
 
 class HistoryService {
   historyLoader = async (req: Request) => {
-    const history: History[] = await historyRepository.all(req.body.userId);
+    const history: History[] = await historyRepository.all();
     return {
       status: 200,
       history: history,
@@ -52,14 +45,18 @@ class HistoryService {
     };
   }; */
 
-  /* createUser = async ({ validated }: Request): Promise<AssertsShape<any>> => {
-    validated.password = await hash(validated.password, 10);
-    const user: User = await userRepository.save(validated);
-
-    return await serializedCreateUserSchema.validate(user, {
-      stripUnknown: true,
+  historyCreator = async (req: Request): Promise<History> => {
+    const user: User = await userRepository.findOne({
+      userId: req.decoded.userId,
     });
-  }; */
+
+    const body = req.body;
+
+    body.user = user.userId;
+    const history: History = await historyRepository.save(req.body);
+    console.log(req.body);
+    return history;
+  };
 
   /* updateUser = async ({ validated }: Request) => {
     const user: User = await userRepository.findOne({
