@@ -23,5 +23,6 @@ export class History {
   playedAt: Date;
 
   @ManyToOne(() => User, (user) => user.history)
+  @JoinColumn({ name: "userId" })
   user: User;
 }

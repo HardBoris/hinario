@@ -26,8 +26,8 @@ export class User {
   @Column()
   userName?: string;
 
-  @OneToMany(() => History, (history) => history.user, { lazy: true })
-  history: History;
+  @OneToMany(() => History, (history) => history.user, { eager: true })
+  history: History[];
 
   comparePwd = async (pwdString: string): Promise<boolean> => {
     return await compare(pwdString, this.password);
