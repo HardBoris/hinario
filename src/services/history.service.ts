@@ -14,11 +14,6 @@ class HistoryService {
   historyUser = async ({ decoded }: Request) =>
     await userRepository.findOne({ userId: decoded.userId });
 
-  history = async ({ decoded }: Request) =>
-    await historyRepository.allByUser({
-      where: { user: { userId: decoded.userId } },
-    });
-
   historyLoader = async (req: Request) => {
     const history: History[] = await historyRepository.all();
     return {
@@ -36,29 +31,37 @@ class HistoryService {
       ...body,
       user: user.userId,
     });
-    // console.log(this.history(req));
     return await serializedCreateHistorySchema.validate(history, {
       stripUnknown: true,
     });
   };
 
-  favoritMarker = async (req: Request) => {
+  favoritMarker = async (req: Request, res: Response) => {
     const user = await this.historyUser(req);
 
-    const history = await this.history(req);
-
     const body = req.body;
-    body.user = user.userId;
-    console.log(history);
-    const favorit: History = await historyRepository.findOne({
-      hymnId: body.hymnId,
-      user: { userId: body.user },
-    });
-    console.log(favorit);
 
-    favorit.isFavorite = body.isFavorite;
-    const updateHistory = await historyRepository.save(favorit);
-    return updateHistory;
+    try {
+      const favorit: History = await historyRepository.findOne({
+        hymnId: body.hymnId,
+        user: { userId: user.userId },
+      });
+
+      if (!favorit) {
+        body.isFavorite = true;
+        const updateHistory: History = await historyRepository.save({
+          ...body,
+          user: user.userId,
+        });
+        return updateHistory;
+      } else {
+        favorit.isFavorite = !favorit.isFavorite;
+        const updateHistory = await historyRepository.save(favorit);
+        return updateHistory;
+      }
+    } catch (error) {
+      return res.status(404);
+    }
   };
 }
 
