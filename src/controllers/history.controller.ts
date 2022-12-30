@@ -13,7 +13,7 @@ class HistoryController {
   };
 
   favoritMarker = async (req: Request, res: Response) => {
-    const favorit = await historyService.favoritMarker(req);
+    const favorit = await historyService.favoritMarker(req, res);
     return res.status(200).json(favorit);
   };
 }
