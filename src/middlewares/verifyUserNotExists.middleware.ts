@@ -1,26 +1,22 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../entities/User";
+import { User } from "../entities";
+import { ErrorHandler } from "../errors";
 import { userRepository } from "../repositories";
 
-const verifyUserNotExists = async (
+const verifyUserExists = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const searchUser: User = await userRepository.findOne({
-    email: req.validated.email,
+  const foundUser: User = await userRepository.findOne({
+    email: (req.validated as User).email,
   });
 
-  if (!searchUser) {
-    return res.status(404).json({
-      error: {
-        message: "Email not exists",
-        name: "EmailNotFound",
-      },
-    });
+  if (!foundUser) {
+    throw new ErrorHandler(404, "Email not exists.");
   }
 
   return next();
 };
 
-export default verifyUserNotExists;
+export default verifyUserExists;

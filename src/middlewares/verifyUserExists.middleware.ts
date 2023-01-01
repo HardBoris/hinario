@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { User } from "../entities/User";
+import { User } from "../entities";
+import { ErrorHandler } from "../errors";
 import { userRepository } from "../repositories";
 
 const verifyUserExists = async (
@@ -8,17 +9,11 @@ const verifyUserExists = async (
   next: NextFunction
 ) => {
   const foundUser: User = await userRepository.findOne({
-    email: req.validated.email,
+    email: (req.validated as User).email,
   });
 
   if (foundUser) {
-    // return res.status(409).json({ message: "Email already exists" });
-    return res.status(409).json({
-      error: {
-        message: "Email already exists",
-        name: "InvalidEmail",
-      },
-    });
+    throw new ErrorHandler(409, "Email already exists.");
   }
 
   return next();
