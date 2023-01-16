@@ -1,14 +1,17 @@
 import nodemailer from "nodemailer";
-import * as dotenv from "dotenv";
-dotenv.config();
 
-const transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
-    user: "3b6033c44c2348",
-    pass: "b5d12801f8d363",
+    user: "brahmanbreederbg@gmail.com",
+    pass: "wkotvvayptglsppw",
   },
 });
 
-export default transport;
+transporter.verify().then(() => {
+  console.log("Ready por send emails");
+});
+
+export default transporter;
