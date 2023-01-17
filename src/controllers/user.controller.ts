@@ -18,6 +18,12 @@ class UserController {
     return res.status(201).json(user);
   };
 
+  /* sendEmail = () => {
+    // const user = await userService.createUser(req);
+    const envio = mailerService.welcomeEmail();
+    return envio;
+  }; */
+
   updateUser = async (req: Request, res: Response) => {
     const user = await userService.updateUser(req);
     return res.status(201).json(user);
