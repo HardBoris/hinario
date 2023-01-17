@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { userService } from "../services";
+import mailerService from "../services/mailer.service";
 
 class UserController {
   loaderUser = async (req: Request, res: Response) => {
