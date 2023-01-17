@@ -55,7 +55,6 @@ class UserService {
   createUser = async ({ validated }: Request): Promise<AssertsShape<any>> => {
     validated.password = await hash(validated.password, 10);
     const user: User = await userRepository.save(validated);
-
     return await serializedCreateUserSchema.validate(user, {
       stripUnknown: true,
     });
