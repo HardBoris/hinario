@@ -15,7 +15,7 @@ class mailerService {
     transporter.use("compile", hbs(handlebarOptions));
 
     const mailOptions = {
-      from: "'Meu Hinario' <widafewocrei-4052@yopmail.com>",
+      from: "'Meu Hinario' <brahmanbreederbg@gmail.com>",
       to: userEmail,
       cc: "",
       bcc: "",
